@@ -1,41 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.7.9</version>
-		<relativePath/> <!-- lookup parent from repository -->
-	</parent>
-	<groupId>io.security</groupId>
-	<artifactId>basicsecurity</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>basicsecurity</name>
-	<description>basicsecurity</description>
-	<properties>
-		<java.version>1.8</java.version>
-	</properties>
-	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.7.9</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>io.security</groupId>
+    <artifactId>basicsecurity</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>basicsecurity</name>
+    <description>basicsecurity</description>
+    <properties>
+        <java.version>1.8</java.version>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+<!--    의존성 추가시 일어나는 일들-->
+<!--    1. 별도의 설정이나 구현을 하지 않아서 기본적인 웹 보안 기능으로 화면을 지원해주기 때문에 연동되어 작동함-->
+<!--    2. 모든 요청이 인증이 되어야 자원에 접근이 가능하다.-->
+<!--    3. 인증 방식은 폼 로그인 방식과 httpBasic 로그인 방식을 제공한다.-->
+<!--    4. 기본 로그인 페이지 제공한다.-->
+<!--    5. 기본 계정 한개 제공한다. -username(id) : user / password : 랜덤 문자열로 console에 표시됨 Using generated security password: (비번)-->
+<!--    문제점-->
+<!--    1. 계정 추가 권한 추가, db 연동등의 작업을 따로 붙여줘야 함.-->
+<!--    2. 기본적인 보안 기능 외에 시스템에서 필요로 하는 더 세부적이고 추가적인 보안기능이 필요-->
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
