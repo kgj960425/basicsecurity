@@ -2,10 +2,12 @@ package io.security.basicsecurity;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
@@ -18,19 +20,36 @@ import java.io.IOException;
 
 @Configuration
 @EnableWebSecurity
+@Order(0)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
-    @Autowired
-    UserDetailsService userDetailsService;
-
     @Override
-    protected void configure(HttpSecurity http) throws Exception{
+    protected void configure(HttpSecurity http) throws Exception {
+
         http
+                .antMatcher("/admin/**")
                 .authorizeRequests()
                 .anyRequest().authenticated()
+                .and()
+                .httpBasic();
+
+        SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_INHERITABLETHREADLOCAL);
+
+    }
+}
+
+@Configuration
+@Order(1)
+class SecurityConfig02 extends WebSecurityConfigurerAdapter {
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+                .authorizeRequests()
+                .anyRequest()
+                .permitAll()
+
         .and()
                 .formLogin()
-                //.loginPage("/loginPage")
+//                .loginPage("/loginPage")
 //                .defaultSuccessUrl("/")
 //                .failureUrl("/login")
 //                .usernameParameter("userId")    //로그인 페이지에서 form안의 id 기입란의 id가 "userId"로 설정됨 html설정할때도 이 이름에 맞춰줘야 오류가 안남.
@@ -51,6 +70,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                    }
 //                })
 //                .permitAll()
+
 //        .and()
 //                .logout()
 //                .logoutUrl("/logout")
@@ -70,12 +90,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                })
 //                .deleteCookies("remember-me")
 
-        .and()
-                .rememberMe()
-                //.rememberMeParameter("remember-me")
-                //.tokenValiditySeconds(3600)
-                .userDetailsService(userDetailsService)
+//        .and()
+//                .rememberMe()
+//                .rememberMeParameter("remember-me")
+//                .tokenValiditySeconds(3600)
+//                .userDetailsService(userDetailsService)
 
         ;
     }
+
 }
